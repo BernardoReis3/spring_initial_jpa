@@ -9,9 +9,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.personal.spring.entities.Category;
 import com.personal.spring.entities.Order;
 import com.personal.spring.entities.User;
 import com.personal.spring.entities.enums.OrderStatus;
+import com.personal.spring.repositories.CategoryRepository;
 import com.personal.spring.repositories.OrderRepository;
 import com.personal.spring.repositories.UserRepository;
 
@@ -25,6 +27,8 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private OrderRepository orderRepository;
 	
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -34,6 +38,10 @@ public class TestConfig implements CommandLineRunner{
 		Order o1 = new Order(null, Instant.parse("2023-06-20T19:53:07Z"), OrderStatus.DELIVERED ,u1); 
 		Order o2 = new Order(null, Instant.parse("2023-07-21T03:42:10Z"), OrderStatus.CANCELLEED ,u2); 
 		Order o3 = new Order(null, Instant.parse("2023-07-22T15:21:22Z"), OrderStatus.PAID ,u1);
+		
+		Category cat1 = new Category(null, "Electronics"); 
+		Category cat2 = new Category(null, "Books"); 
+		Category cat3 = new Category(null, "Computers"); 
 		
 		
 		List<User> users = new ArrayList<>();
@@ -47,5 +55,10 @@ public class TestConfig implements CommandLineRunner{
 		orders.add(o3);
 		orderRepository.saveAll(orders);
 		
+		List<Category> categories = new ArrayList<>();
+		categories.add(cat1);
+		categories.add(cat2);
+		categories.add(cat3);
+		categoryRepository.saveAll(categories);
 	} 
 }
