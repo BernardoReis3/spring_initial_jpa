@@ -5,12 +5,16 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import org.springframework.web.bind.annotation.Mapping;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "td_product")
@@ -25,7 +29,8 @@ public class Product implements Serializable {
 	private Double price;
 	private String imgURL;
 	
-	@Transient
+	@JsonIgnore
+	@ManyToMany(mappedBy = "products")
 	private Set<Category> categories = new HashSet<>();
 	
 	public Product() {
