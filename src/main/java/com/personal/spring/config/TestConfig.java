@@ -2,9 +2,7 @@ package com.personal.spring.config;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,10 +11,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.personal.spring.entities.Category;
 import com.personal.spring.entities.Order;
+import com.personal.spring.entities.OrderItem;
 import com.personal.spring.entities.Product;
 import com.personal.spring.entities.User;
 import com.personal.spring.entities.enums.OrderStatus;
 import com.personal.spring.repositories.CategoryRepository;
+import com.personal.spring.repositories.OrderItemRepository;
 import com.personal.spring.repositories.OrderRepository;
 import com.personal.spring.repositories.ProductRepository;
 import com.personal.spring.repositories.UserRepository;
@@ -36,6 +36,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -88,8 +91,19 @@ public class TestConfig implements CommandLineRunner{
 		cat3.getProducts().add(p2);
 		cat3.getProducts().add(p3);
 		cat3.getProducts().add(p4);
-		categoryRepository.saveAll(categories);		
+		categoryRepository.saveAll(categories);
 		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice()); 
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice()); 
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice()); 
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		List<OrderItem> items = new ArrayList<>();
+		items.add(oi1);
+		items.add(oi2);
+		items.add(oi3);
+		items.add(oi4);
+		orderItemRepository.saveAll(items);
 		
 	} 
 }
