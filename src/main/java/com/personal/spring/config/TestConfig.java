@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 import com.personal.spring.entities.Category;
 import com.personal.spring.entities.Order;
 import com.personal.spring.entities.OrderItem;
+import com.personal.spring.entities.Payment;
 import com.personal.spring.entities.Product;
 import com.personal.spring.entities.User;
 import com.personal.spring.entities.enums.OrderStatus;
@@ -104,6 +105,11 @@ public class TestConfig implements CommandLineRunner{
 		items.add(oi3);
 		items.add(oi4);
 		orderItemRepository.saveAll(items);
+		
+		Payment payment1 = new Payment(null, Instant.parse("2023-07-22T17:21:22Z"), o3);
+		o3.setPayment(payment1);
+		
+		orderRepository.save(o3);
 		
 	} 
 }
